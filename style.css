@@ -1,0 +1,94 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: 'Lato', sans-serif;
+}
+
+
+.container-div {
+    height: 100vh;
+  }
+  .heading{
+    margin-bottom: 10px;
+    font-size: 34px;
+    color: #333;
+  }
+  .form-container {
+    background-color: #fff;
+    width: 320px;
+    padding: 30px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    text-align: center;
+  }
+  
+  .right-side{
+    background-color:#efeded;
+    width: 25%;
+  }
+  .dashboard-bg{
+    background-color: #d8d0d0;
+    max-height: 100%;
+    width: 100%;
+  }
+  .btns-div{
+    flex-wrap: nowrap;
+  }
+  .cursor-pointer{
+    cursor: pointer;
+  }
+ .accounts{
+  height: 120px;
+  background: #ddd;
+  border-radius: 10px;
+  width: 100%;
+ }
+ #bank-amount,#bank-name{
+  font-size: 14px;
+ }
+ #bank-name{
+  font-weight: 600;
+ }
+
+ .rounded-img{
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
+  display: inline-block;
+ }
+
+
+ ::-webkit-scrollbar {
+  width: 8px;
+  height:8px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px grey; 
+  border-radius: 10px;
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #333; 
+  border-radius: 10px;
+}
+
+.selected >span{
+  color: blue;
+}
+.selected-btn{
+  border: 1px solid blue;
+}
+
+
+@media only screen and (max-width: 920px) {
+ .right-side{
+  width: 100%;
+ }
+ .btns-div{
+  flex-wrap: wrap;
+ }
+}

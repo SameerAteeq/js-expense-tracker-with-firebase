@@ -54,7 +54,6 @@ async function AddTransaction(e) {
   const amount = amountInput.value;
   const bankId = bankSelectEle.value;
   const account = await getMyBankAccountById(bankId);
-
   const category = getSelectedCategory();
   const type = transactionType;
 
@@ -79,16 +78,7 @@ async function AddTransaction(e) {
   } else {
     alert("Please enter all details");
   }
-  console.log(incomeBtn);
 }
-
-//Get Transaction List
-// export async function getTransactions(e) {
-//   const transactions = await listTransactions((transactionList) => {
-//     renderTable(transactionList);
-//   });
-// }
-// window.onload = getTransactions();
 
 //Render data in table
 async function renderTable(data) {
@@ -107,23 +97,31 @@ async function renderTable(data) {
       row.appendChild(numberCell);
 
       const bankIdCell = document.createElement("td");
+
       bankIdCell.textContent = item.bankName;
       row.appendChild(bankIdCell);
 
       const amountCell = document.createElement("td");
+      amountCell.classList.add("text-secondary");
       amountCell.textContent = item.category;
       row.appendChild(amountCell);
 
       const typeCell = document.createElement("td");
+      typeCell.classList.add("text-secondary");
       typeCell.textContent = item.formattedDate;
       row.appendChild(typeCell);
 
       const timeCell = document.createElement("td");
-      timeCell.textContent = item.amount;
+      if (item.type === "EXPENSE") {
+        timeCell.classList.add("text-danger");
+      } else {
+        timeCell.classList.add("text-success");
+      }
+      timeCell.textContent = `Rs - ${item.amount} PKR`;
       row.appendChild(timeCell);
 
       tableBody.appendChild(row);
     });
   });
 }
-renderTable();
+window.onload = renderTable();

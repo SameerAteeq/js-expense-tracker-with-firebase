@@ -11,7 +11,6 @@ const savings = document.getElementById("savings");
 const user = JSON.parse(localStorage.getItem("user"));
 const openModal = document.getElementById("open-modal");
 const bankAccountsDiv = document.getElementById("bankAccounts-div");
-
 // Add bank Account
 if (add_account) {
   add_account.addEventListener("click", addAccount);
@@ -25,7 +24,6 @@ async function addAccount(e) {
 }
 
 //Get bank Accounts
-
 async function userBanksAccounts() {
   const bankAccountsDiv = document.getElementById("bank-accounts");
   const unsub = await getMybankAccounts((bankAccounts) => {
@@ -37,10 +35,9 @@ async function userBanksAccounts() {
     FirstoptionElement.textContent = "Paying from bank";
     bankSelectEle.appendChild(FirstoptionElement);
 
-    console.log(bankAccounts, "accounts");
     if (!bankAccounts?.length > 0) {
       openModal.innerText = "Add Account";
-      bankAccountsDiv.classList.add("d-none");
+      bankAccountsDiv?.classList.add("d-none");
     } else {
       openModal.innerText = "Add more+";
       bankContainer.classList.add("d-block");

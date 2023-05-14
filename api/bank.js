@@ -14,6 +14,7 @@ import {
 } from "https://www.gstatic.com/firebasejs/9.21.0/firebase-firestore.js";
 const db = getFirestore();
 const user = JSON.parse(localStorage.getItem("user"));
+const myModal = document.getElementById("myModal");
 
 // Add Bank Account
 export const addBankAccount = async (payload) => {
@@ -34,6 +35,8 @@ export const addBankAccount = async (payload) => {
         ...accountDetails,
       });
       alert("Your bank account created successfully");
+      const modalInstance = bootstrap.Modal.getInstance(myModal);
+      modalInstance.hide();
     }
   } catch (error) {
     console.log(error);
@@ -56,7 +59,6 @@ export const getMybankAccounts = async (callback) => {
         bankAccounts.push({ id: doc.id, ...doc.data() });
       });
       callback(bankAccounts);
-      console.log(bankAccounts, "banks");
     });
 
     // Return the unsubscribe function in case you need to unsubscribe from the snapshot listener later

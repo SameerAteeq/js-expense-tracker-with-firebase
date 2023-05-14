@@ -1,19 +1,20 @@
-import { registerUser } from "../api/user.js";
+import { AddUserToFirestore, registerUser, signIn } from "../api/user.js";
 import {
   getAuth,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
 } from "https://www.gstatic.com/firebasejs/9.21.0/firebase-auth.js";
-
+import { initializeApp } from "https://www.gstatic.com/firebasejs/9.21.0/firebase-app.js";
+import { firebaseConfig } from "../firebase/config.js";
 import {
   getFirestore,
   doc,
   setDoc,
   collection,
 } from "https://www.gstatic.com/firebasejs/9.21.0/firebase-firestore.js";
+
 const auth = getAuth();
 const db = getFirestore();
-
 //Getting all values
 const signUpForm = document.getElementById("signup-form");
 const name = document.getElementById("username");
@@ -27,7 +28,8 @@ if (signUpForm) {
   signUpForm.addEventListener("submit", createUser);
 }
 
-//Create User
+// Create User
+
 async function createUser(e) {
   e.preventDefault();
   const obj = {
@@ -35,32 +37,19 @@ async function createUser(e) {
     email: email.value,
     password: password.value,
   };
-  const ref = collection(db, "users");
-  if (obj.name && obj.email && obj.password !== "") {
-    createUserWithEmailAndPassword(auth, obj.email, obj.password)
-      .then((userCredential) => {
-        const user = userCredential.user;
-        console.log(user);
-        localStorage.setItem("user", JSON.stringify(user));
-        if (user) {
-          try {
-            setDoc(doc(db, `users`, user.uid), {
-              ...obj,
-            });
-          } catch (err) {
-            console.log(err);
-          }
-          window.location.href = "../html files/dashboard.html";
-        }
-
-        alert("User created successfully");
-      })
-      .catch((err) => {
-        alert(err.message);
-      });
-  } else {
+  if (!obj.name || !obj.email || !obj.password) {
     alert("All fields are required");
     return;
+  }
+
+  console.log(obj);
+  try {
+    const user = await registerUser(obj);
+    await AddUserToFirestore(user, obj);
+    alert("User created successfully");
+    window.location.href = "../html files/login.html";
+  } catch (error) {
+    alert(error.message);
   }
 }
 
@@ -70,24 +59,18 @@ if (loginForm) {
   loginForm.addEventListener("submit", loginUser);
 }
 
-function loginUser(e) {
+async function loginUser(e) {
   e.preventDefault();
   const Userobj = {
     email: SignInemail.value,
     password: SignInpassword.value,
   };
-  // SIGIN USER
-  signInWithEmailAndPassword(auth, Userobj.email, Userobj.password)
-    .then((userCredential) => {
-      const user = userCredential.user;
-      console.log(user, "User");
-      localStorage.setItem("user", JSON.stringify(user));
-      alert("User Login");
-      window.location.href = "../html files/dashboard.html";
-    })
-    .catch((err) => {
-      alert(err.message);
-      console.log(err);
-    });
-  console.log(Userobj);
+  try {
+    const user = await signIn(Userobj);
+    localStorage.setItem("user", JSON.stringify(user));
+    window.location.href = "../html files/dashboard.html";
+    return user;
+  } catch (error) {
+    alert(error.message);
+  }
 }

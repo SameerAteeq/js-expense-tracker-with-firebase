@@ -15,7 +15,6 @@ const user = JSON.parse(localStorage.getItem("user"));
 
 //Add Transactions
 export const addTransaction = async (payload) => {
-  console.log(payload, "payload");
   const time = new Date().toLocaleString();
   const dateObj = new Date(time);
   const formattedDate = dateObj.toLocaleDateString("en-US", {
@@ -30,7 +29,7 @@ export const addTransaction = async (payload) => {
     const account = await getMyBankAccountById(payload?.bankId);
 
     if (payload?.type === "EXPENSE" && payload?.amount > account.amount) {
-      alert("You can't add this transaction");
+      alert(`You don't have sufficient balance in ${payload?.bankName}`);
     } else if (payload?.amount < 0) {
       alert("Please add valid amount");
     } else if (!Number(payload?.amount)) {

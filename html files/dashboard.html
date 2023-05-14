@@ -84,8 +84,8 @@
             <!-- Transactions Table -->
             <h5 class="mt-5">Transaction History</h5>
 
-            <table id="table" class="table">
-              <thead>
+            <table id="table" class="table  table-bordered table-hover">
+              <thead class="bg-secondary">
                 <tr>
                   <th scope="col">#</th>
                   <th scope="col">Bank</th>
@@ -94,6 +94,7 @@
                   <th scope="col">Amount</th>
                 </tr>
               </thead>
+
               <tbody>
               
               </tbody>
@@ -103,7 +104,7 @@
           <!-- Right Side -->
           <div class=" d-flex flex-column gap-2 p-4 m-4 rounded-3 right-side">
             <span class="fs-8">What You have</span>
-            <h6 id="total" class="text-primary"></h6>
+            <h6 id="total" class="text-primary">200</h6>
 
             <div class="d-flex justify-content-between">
               <div class="d-flex flex-column">
@@ -147,7 +148,7 @@
                     <h6 class="text-primary text-center mb-1">Create a new account</h6>
                     <h6 class="text-secondary text-center mb-4">Add your expenses and savings here.</h6>
                     <input id="account-name" type="text" class="form-control mb-3 shadow-none p-2 shadow-lg" placeholder="Enter your account name" aria-label="Username" aria-describedby="basic-addon1">
-                    <input id="account-amount" type="number" class="form-control mb-3 rounded-2  shadow-none p-2 shadow-lg" placeholder="Enter your ammount" aria-label="Username" aria-describedby="basic-addon1">
+                    <input min="1" id="account-amount" type="number" class="form-control mb-3 rounded-2  shadow-none p-2 shadow-lg" placeholder="Enter your ammount" aria-label="Username" aria-describedby="basic-addon1">
                     <div class="text-center">
                       <button id="add-account" class="btn btn-primary">Add Account</button>
                     </div>

@@ -54,17 +54,18 @@ async function AddTransaction(e) {
   const amount = amountInput.value;
   const bankId = bankSelectEle.value;
   const account = await getMyBankAccountById(bankId);
+  const bankName = account?.bankName;
   const category = getSelectedCategory();
   const type = transactionType;
 
-  if (amount && category && bankId && type) {
+  if (amount && category && bankId && type && bankName) {
     addTransaction({
       userId: user.uid,
       amount: amount,
       category: category,
       bankId: bankId,
       type: type,
-      bankName: account.bankName,
+      bankName: bankName,
     });
 
     // reset input fields and selected category

@@ -87,10 +87,12 @@ async function renderTable(data) {
     const table = document.getElementById("table");
     const tableBody = document.querySelector("#table tbody");
     tableBody.innerHTML = "";
-    if (!transactionList.length) {
+    if (!transactionList?.length > 0) {
       table.classList.add("d-none");
+    } else {
+      table.classList.remove("d-none");
     }
-    transactionList.forEach((item, index) => {
+    transactionList?.forEach((item, index) => {
       const row = document.createElement("tr");
 
       const numberCell = document.createElement("td");
